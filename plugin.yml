@@ -3,13 +3,35 @@ main: ProjectInfinity\ReportRTS\ReportRTS
 version: 1.0
 api: [1.4.0]
 author: ProjectInfinity
+
 commands:
   ticket:
     description: "General ticket cmd for ReportRTS"
-    usage: "/ticket <action> <arguments>"
+    usage: "/ticket <read|open|close|reopen|claim|unclaim|assign|hold|tp|staff>"
     permission: "reportrts.ticket"
     aliases: [report]
     default: op
+    children:
+      ticket.read:
+        description: "Display open, held or closed tickets."
+        usage: "/ticket open <id|page|held|closed|server>"
+        permission: "reportrts.command.check"
+        default: op
+      ticket.open:
+        description: "Opens a ticket with the following arguments as it's message."
+        usage: "/ticket open <message>"
+        permission: "reportrts.command.modreq"
+        default: op
+      ticket.close:
+        description: "Closes specified ticket."
+        usage: "/ticket close <id> <optional message>"
+        permission: "reportrts.command.complete"
+        default: op
+      ticket.reopen:
+        description: "Reopens the specified ticket."
+        usage: "/ticket reopen <id>"
+        permission: "reportrts.command.complete"
+        default: op
   reportrts:
     description: "General ReportRTS management command"
     usage: "/reportrts <action> <arguments>"
